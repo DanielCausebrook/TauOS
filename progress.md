@@ -27,3 +27,34 @@
 + QEMU was successfully installed.
 + Bare bones kernel was built and run successfully.
 
+# 2018-10-20
+
+##Home
+
++ Researched Linux distributions. Arch Linux will be used for development.
++ Downloaded image and researched partitions.
+
+# 2018-10-24
+
+##Home
+
++ Installed Arch onto 50GB partition (except bootloader).
+
+# 2018-10-25
+
+##DCS
+
++ Supervisor meeting cancelled by Adam Chester.
++ Bare bones kernel functionality extended
+  + Newline support
+  + Terminal scrolling
++ Implemented bouncing balls simulation.
++ Read [OSDev: Going Further on x86][2] to understand potential issues and to get a "broader perspective".
++ Reviewed [OSDev: Meaty Skeleton][3] and planned first steps.
+
+[2]: https://wiki.osdev.org/Going_Further_on_x86
+[3]: https://wiki.osdev.org/Meaty_Skeleton
+
+##Next
+
++ Start writing new OS using Meaty Skeleton as a reference. Understand why design choices have been made.
