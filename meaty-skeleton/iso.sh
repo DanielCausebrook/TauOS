@@ -12,4 +12,9 @@ menuentry "myos" {
 	multiboot /boot/myos.kernel
 }
 EOF
-grub-mkrescue -o myos.iso isodir --xorriso="$(./xorriso-loc.sh)"
+
+if [ -f xorriso-loc.sh ]; then
+	grub-mkrescue -o myos.iso isodir --xorriso="$(./xorriso-loc.sh)"
+else
+	grub-mkrescue -o myos.iso isodir
+fi
