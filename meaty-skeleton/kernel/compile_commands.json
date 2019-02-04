@@ -5,10 +5,9 @@
    "cc", 
    "-MD", 
    "-c", 
-   "kernel/kernel.c", 
+   "kernel/gdtset.S", 
    "-o", 
-   "kernel/kernel.o", 
-   "-std=gnu11", 
+   "kernel/gdtset.o", 
    "-O2", 
    "-g", 
    "-ffreestanding", 
@@ -17,7 +16,45 @@
    "-D__is_kernel", 
    "-Iinclude"
   ], 
-  "file": "kernel/kernel.c"
+  "file": "kernel/gdtset.S"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/idtset.S", 
+   "-o", 
+   "kernel/idtset.o", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/idtset.S"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/isrsasm.S", 
+   "-o", 
+   "kernel/isrsasm.o", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/isrsasm.S"
  }, 
  {
   "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
@@ -38,5 +75,65 @@
    "-Iinclude"
   ], 
   "file": "kernel/gdt.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/idt.c", 
+   "-o", 
+   "kernel/idt.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/idt.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/kernel.c", 
+   "-o", 
+   "kernel/kernel.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/kernel.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/isrs.c", 
+   "-o", 
+   "kernel/isrs.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/isrs.c"
  }
 ]

@@ -61,6 +61,35 @@ int printf(const char* restrict format, ...) {
 			if (!print(str, len))
 				return -1;
 			written += len;
+		} else if (*format == 'X') {
+			format++;
+			char c = (char) va_arg(parameters, int /* char promotes to int */);
+			if (!maxrem) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+                        for(int i = 1; i >= 0 ; i--) {
+                            int t = (c >> (i * 4)) & 0xF;
+                            char o;
+                            switch(t) {
+                                case 0xA: o = 'A';
+                                    break;
+                                case 0xB: o = 'B';
+                                    break;
+                                case 0xC: o = 'C';
+                                    break;
+                                case 0xD: o = 'D';
+                                    break;
+                                case 0xE: o = 'E';
+                                    break;
+                                case 0xF: o = 'F';
+                                    break;
+                                default: o = t + 48;
+                            }
+			    if (!print(&o, sizeof(o)))
+				    return -1;
+			    written++;
+                        }
 		} else {
 			format = format_begun_at;
 			size_t len = strlen(format);

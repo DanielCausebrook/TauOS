@@ -13,13 +13,14 @@ struct gdt_entry {
 } __attribute__((packed));
 
 struct gdt_ptr {
-    uint16_t limit;
-    uint32_t base;
+    uint16_t size;
+    uint32_t offset;
 } __attribute__((packed));
 
 extern void load_gdt(struct gdt_ptr *gdt_ptr, unsigned int data_sel, unsigned int code_sel);
 
-struct gdt_entry gdt[3];
+#define GDTLEN 3
+struct gdt_entry gdt[GDTLEN];
 struct gdt_ptr gdtPtr;
 
 void gdt_encode_entry(struct gdt_entry *target, uint32_t limit, uint32_t base, uint8_t access) {
@@ -53,8 +54,8 @@ void gdt_init() {
     gdt_encode_entry(&gdt[1], 0xffffffff, 0, 0x9A);
     gdt_encode_entry(&gdt[2], 0xffffffff, 0, 0x92);
 
-    gdtPtr.base = (uint32_t) &gdt;
-    gdtPtr.limit = sizeof(gdt);
+    gdtPtr.offset = (uint32_t) &gdt;
+    gdtPtr.size = sizeof(struct gdt_entry) * GDTLEN - 1;
 
     load_gdt(&gdtPtr, 0x10, 0x08);
 }
