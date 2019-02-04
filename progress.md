@@ -58,3 +58,16 @@
 ##Next
 
 + Start writing new OS using Meaty Skeleton as a reference. Understand why design choices have been made.
+
+# 2019-02-04
+
+##Home
+
++ Finally got going again.
++ Added GDT.
+  + Examples on OSDev and from [Bran's Kernel Development Tutuorial][4] used intel assembly, but gcc uses AT&T style. Converted all but long jump instruction.
+  + Used extremely helpful [StackOverflow post][5] which contained working GDT loading.
+  + Kernel is in flat protected mode, so used setup for that.
+
+[4]: http://www.osdever.net/bkerndev/Docs/gdt.htm
+[5]: https://stackoverflow.com/questions/49438550/assembly-executing-a-long-jump-with-an-offset-with-different-syntax

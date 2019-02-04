@@ -2,7 +2,10 @@
 
 #include <kernel/tty.h>
 
+void gdt_init();
+
 void kernel_main(void) {
 	terminal_initialize();
-	printf("Hello, kernel World!\n");
+    gdt_init();
+    printf("Hello, kernel World!\n");
 }

@@ -1,0 +1,191 @@
+[
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "stdio/printf.c", 
+   "-o", 
+   "stdio/printf.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "stdio/printf.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "string/strlen.c", 
+   "-o", 
+   "string/strlen.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "string/strlen.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "stdio/putchar.c", 
+   "-o", 
+   "stdio/putchar.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "stdio/putchar.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "string/memcpy.c", 
+   "-o", 
+   "string/memcpy.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "string/memcpy.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "string/memset.c", 
+   "-o", 
+   "string/memset.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "string/memset.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "string/memmove.c", 
+   "-o", 
+   "string/memmove.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "string/memmove.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "stdio/puts.c", 
+   "-o", 
+   "stdio/puts.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "stdio/puts.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "stdlib/abort.c", 
+   "-o", 
+   "stdlib/abort.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "stdlib/abort.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/libc", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "string/memcmp.c", 
+   "-o", 
+   "string/memcmp.libk.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_libc", 
+   "-Iinclude", 
+   "-D__is_libk"
+  ], 
+  "file": "string/memcmp.c"
+ }
+]
