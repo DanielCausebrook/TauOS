@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <kernel/system.h>
 
 extern void isr0();
 extern void isr1();
@@ -35,8 +36,6 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
-
-void idt_set_gate(uint8_t gateNum, uint64_t offset, uint16_t selector, uint8_t type_attr);
 
 void isrs_install() {
     idt_set_gate(0, (unsigned)isr0, 0x08, 0x8E);
@@ -106,13 +105,6 @@ char *ex_msgs[] = {
         "Reserved",
         "Reserved",
         "Reserved"
-};
-
-struct registers {
-    unsigned int gs, fs, es, ds;      /* pushed the segs last */
-    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;  /* pushed by 'pusha' */
-    unsigned int interrupt_num, err_code;
-    unsigned int eip, cs, eflags, useresp, ss;   /* pushed by the processor automatically */
 };
 
 void fault_handler(struct registers *r)

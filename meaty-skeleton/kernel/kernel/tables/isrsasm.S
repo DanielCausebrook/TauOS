@@ -268,6 +268,7 @@ isr_common_stub:
     mov %ax, %gs
     mov %esp, %eax   # Push us the stack
     push %eax
+    # mov fault_handler, %eax
     call fault_handler       # A special call, preserves the 'eip' register
     pop %eax
     pop %gs

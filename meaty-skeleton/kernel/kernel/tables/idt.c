@@ -28,7 +28,6 @@ void idt_set_gate(uint16_t gateNum, uint64_t offset, uint16_t selector, uint8_t 
     idt[gateNum].selector = selector;
     idt[gateNum].type_attr = type_attr;
     idt[gateNum].zero = 0;
-    //printf("Num: 0x%X; Sel: 0x%X; Type: 0x%X", gateNum, selector, type_attr);
 }
 
 void idt_init() {

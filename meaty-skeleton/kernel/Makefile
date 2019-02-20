@@ -30,12 +30,16 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
-kernel/gdt.o \
-kernel/gdtset.o \
-kernel/idt.o \
-kernel/idtset.o \
-kernel/isrsasm.o \
-kernel/isrs.o \
+kernel/ioports.o \
+kernel/tables/gdt.o \
+kernel/tables/gdtset.o \
+kernel/tables/idt.o \
+kernel/tables/idtset.o \
+kernel/tables/isrs.o \
+kernel/tables/isrsasm.o \
+kernel/tables/irqs.o \
+kernel/tables/irqsasm.o \
+kernel/clock.o \
 
 OBJS=\
 $(ARCHDIR)/crti.o \
