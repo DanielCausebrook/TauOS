@@ -4,106 +4,114 @@
 #include <stdio.h>
 #include <string.h>
 
-static bool print(const char* data, size_t length) {
-	const unsigned char* bytes = (const unsigned char*) data;
-	for (size_t i = 0; i < length; i++)
-		if (putchar(bytes[i]) == EOF)
-			return false;
-	return true;
+
+static bool print(const char *data, size_t length) {
+    const unsigned char *bytes = (const unsigned char *) data;
+    for (size_t i = 0; i < length; i++)
+        if (putchar(bytes[i]) == EOF)
+            return false;
+    return true;
 }
 
-int printf(const char* restrict format, ...) {
-	va_list parameters;
-	va_start(parameters, format);
+int printf(const char *restrict format, ...) {
+    va_list parameters;
+    va_start(parameters, format);
 
-	int written = 0;
+    int written = 0;
 
-	while (*format != '\0') {
-		size_t maxrem = INT_MAX - written;
+    while (*format != '\0') {
+        size_t maxrem = INT_MAX - written;
 
-		if (format[0] != '%' || format[1] == '%') {
-			if (format[0] == '%')
-				format++;
-			size_t amount = 1;
-			while (format[amount] && format[amount] != '%')
-				amount++;
-			if (maxrem < amount) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(format, amount))
-				return -1;
-			format += amount;
-			written += amount;
-			continue;
-		}
+        if (format[0] != '%' || format[1] == '%') {
+            if (format[0] == '%')
+                format++;
+            size_t amount = 1;
+            while (format[amount] && format[amount] != '%')
+                amount++;
+            if (maxrem < amount) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            if (!print(format, amount))
+                return -1;
+            format += amount;
+            written += amount;
+            continue;
+        }
 
-		const char* format_begun_at = format++;
+        const char *format_begun_at = format++;
 
-		if (*format == 'c') {
-			format++;
-			char c = (char) va_arg(parameters, int /* char promotes to int */);
-			if (!maxrem) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(&c, sizeof(c)))
-				return -1;
-			written++;
-		} else if (*format == 's') {
-			format++;
-			const char* str = va_arg(parameters, const char*);
-			size_t len = strlen(str);
-			if (maxrem < len) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(str, len))
-				return -1;
-			written += len;
-		} else if (*format == 'X') {
-			format++;
-			char c = (char) va_arg(parameters, int /* char promotes to int */);
-			if (!maxrem) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-                        for(int i = 1; i >= 0 ; i--) {
-                            int t = (c >> (i * 4)) & 0xF;
-                            char o;
-                            switch(t) {
-                                case 0xA: o = 'A';
-                                    break;
-                                case 0xB: o = 'B';
-                                    break;
-                                case 0xC: o = 'C';
-                                    break;
-                                case 0xD: o = 'D';
-                                    break;
-                                case 0xE: o = 'E';
-                                    break;
-                                case 0xF: o = 'F';
-                                    break;
-                                default: o = t + 48;
-                            }
-			    if (!print(&o, sizeof(o)))
-				    return -1;
-			    written++;
-                        }
-		} else {
-			format = format_begun_at;
-			size_t len = strlen(format);
-			if (maxrem < len) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(format, len))
-				return -1;
-			written += len;
-			format += len;
-		}
-	}
+        if (*format == 'c') {
+            format++;
+            char c = (char) va_arg(parameters, int /* char promotes to int */);
+            if (!maxrem) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            if (!print(&c, sizeof(c)))
+                return -1;
+            written++;
+        } else if (*format == 's') {
+            format++;
+            const char *str = va_arg(parameters, const char*);
+            size_t len = strlen(str);
+            if (maxrem < len) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            if (!print(str, len))
+                return -1;
+            written += len;
+        } else if (*format == 'X') {
+            format++;
+            char c = (char) va_arg(parameters, int /* char promotes to int */);
+            if (!maxrem) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            // Get each half of the byte and convert it to a character.
+            for (int i = 1; i >= 0; i--) {
+                int t = (c >> (i * 4)) & 0xF;
+                char o = t + ((t<0xA)?'0':'7');
+                if (!print(&o, sizeof(o)))
+                    return -1;
+                written++;
+            }
+        } else if (*format == 'd') {
+            format++;
+            int c = va_arg(parameters, int);
+            if (!maxrem) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            char num[10];
+            for (int i = 9; i >= 0; i--) {
+                int r = c % 10;
+                c = c / 10; // Rounds down
+                num[i] = '0' + r;
+            }
+            int leadingZero = 1;
+            for(int i = 0; i < 10; i++) {
+                if(leadingZero && num[i] == '0') continue;
+                leadingZero = 0;
+                if (!print(&num[i], sizeof(char)))
+                    return -1;
+                written++;
+            }
+        } else {
+            format = format_begun_at;
+            size_t len = strlen(format);
+            if (maxrem < len) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            if (!print(format, len))
+                return -1;
+            written += len;
+            format += len;
+        }
+    }
 
-	va_end(parameters);
-	return written;
+    va_end(parameters);
+    return written;
 }

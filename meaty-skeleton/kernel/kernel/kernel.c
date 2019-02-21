@@ -57,6 +57,7 @@ void kernel_main(void) {
     clock_install();
     irq_install_handler(1, keyboard_handler);
     printf("Hello, kernel World!\n");
+    printf("It's a number! %d\n", 5);
     asm("sti");
     while(1);
 }

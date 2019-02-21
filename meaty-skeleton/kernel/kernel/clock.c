@@ -14,7 +14,7 @@ int counter = 0;
 void clock_handler(struct registers *r) {
     counter++;
 
-    if(counter % 1000 == 0) printf("10 Seconds!\n");
+    if(counter % 1000 == 0) printf("%d Seconds!\n", counter/100);
 }
 
 void clock_install() {
