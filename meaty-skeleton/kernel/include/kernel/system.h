@@ -11,6 +11,10 @@ struct registers {
     unsigned int eip, cs, eflags, useresp, ss;   /* pushed by the processor automatically */
 };
 
+void *allocate_real_page();
+void free_real_page(void *page);
+void *allocate_kpage();
+
 unsigned char inportb (unsigned short _port);
 void outportb (unsigned short _port, unsigned char _data);
 
@@ -19,6 +23,9 @@ void idt_init();
 void isrs_install();
 void irqs_install();
 void clock_install();
+void keyboard_install();
+
+void *paging_init_vga();
 
 void idt_set_gate(uint8_t gateNum, uint64_t offset, uint16_t selector, uint8_t type_attr);
 

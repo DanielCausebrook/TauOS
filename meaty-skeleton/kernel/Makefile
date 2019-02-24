@@ -39,7 +39,10 @@ kernel/tables/isrs.o \
 kernel/tables/isrsasm.o \
 kernel/tables/irqs.o \
 kernel/tables/irqsasm.o \
+kernel/tables/paging.o \
+kernel/tables/pagingset.o \
 kernel/clock.o \
+kernel/keyboard.o \
 
 OBJS=\
 $(ARCHDIR)/crti.o \

@@ -18,11 +18,13 @@ int printf(const char *restrict format, ...) {
     va_start(parameters, format);
 
     int written = 0;
+    int flags = 0;
+    int lFlag = 0;
 
     while (*format != '\0') {
         size_t maxrem = INT_MAX - written;
 
-        if (format[0] != '%' || format[1] == '%') {
+        if (!flags && (format[0] != '%' || format[1] == '%')) {
             if (format[0] == '%')
                 format++;
             size_t amount = 1;
@@ -67,7 +69,6 @@ int printf(const char *restrict format, ...) {
             char c = (char) va_arg(parameters, int /* char promotes to int */);
             if (!maxrem) {
                 // TODO: Set errno to EOVERFLOW.
-                return -1;
             }
             // Get each half of the byte and convert it to a character.
             for (int i = 1; i >= 0; i--) {
@@ -79,25 +80,71 @@ int printf(const char *restrict format, ...) {
             }
         } else if (*format == 'd') {
             format++;
-            int c = va_arg(parameters, int);
+            long c;
+            int nDigits;
+            if(lFlag) {
+                if(!flags) return -1;
+                c = va_arg(parameters, long);
+                nDigits = 20;
+                flags = 0;
+                lFlag = 0;
+            } else {
+                c = va_arg(parameters, int);
+                nDigits = 10;
+            }
             if (!maxrem) {
                 // TODO: Set errno to EOVERFLOW.
                 return -1;
             }
-            char num[10];
-            for (int i = 9; i >= 0; i--) {
-                int r = c % 10;
+            char num[nDigits];
+            for (int i = nDigits - 1; i >= 0; i--) {
+                int r = (int) (c % 10);
                 c = c / 10; // Rounds down
-                num[i] = '0' + r;
+                num[i] = (char) ('0' + r);
             }
             int leadingZero = 1;
-            for(int i = 0; i < 10; i++) {
-                if(leadingZero && num[i] == '0') continue;
+            for(int i = 0; i < nDigits; i++) {
+                if(leadingZero && num[i] == '0' && i != nDigits - 1) continue;
                 leadingZero = 0;
                 if (!print(&num[i], sizeof(char)))
                     return -1;
                 written++;
             }
+        } else if (*format == 'u') {
+            format++;
+            unsigned long c;
+            int nDigits;
+            if(lFlag) {
+                if(!flags) return -1;
+                c = va_arg(parameters, unsigned long);
+                nDigits = 20;
+                flags = 0;
+                lFlag = 0;
+            } else {
+                c = va_arg(parameters, unsigned int);
+                nDigits = 10;
+            }
+            if (!maxrem) {
+                // TODO: Set errno to EOVERFLOW.
+                return -1;
+            }
+            char num[nDigits];
+            for (int i = nDigits - 1; i >= 0; i--) {
+                int r = (int) (c % 10);
+                c = c / 10; // Rounds down
+                num[i] = (char) ('0' + r);
+            }
+            int leadingZero = 1;
+            for(int i = 0; i < nDigits; i++) {
+                if(leadingZero && num[i] == '0' && i != nDigits - 1) continue;
+                leadingZero = 0;
+                if (!print(&num[i], sizeof(char)))
+                    return -1;
+                written++;
+            }
+        } else if (*format == 'l') {
+            flags = 1;
+            lFlag = 1;
         } else {
             format = format_begun_at;
             size_t len = strlen(format);
@@ -110,6 +157,8 @@ int printf(const char *restrict format, ...) {
             written += len;
             format += len;
         }
+        if(flags == 1) flags = 2;
+        else if(flags == 2) return -1;
     }
 
     va_end(parameters);

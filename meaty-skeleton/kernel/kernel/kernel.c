@@ -1,78 +1,24 @@
 #include <stdio.h>
+#include <stdint.h>
 
+#include <kernel/multiboot.h>
 #include <kernel/tty.h>
 #include <kernel/system.h>
+#include <stdlib.h>
 
 //TODO Add to header file somewhere. Mentioned at end of Bran's IDT page.
 
-void keyboard_handler(struct registers *r);
-
-unsigned char kbdus[128] =
-    {
-        0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
-        '9', '0', '-', '=', '\b',	/* Backspace */
-        '\t',			/* Tab */
-        'q', 'w', 'e', 'r',	/* 19 */
-        't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',	/* Enter key */
-        0,			/* 29   - Control */
-        'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
-        '\'', '`',   0,		/* Left shift */
-        '\\', 'z', 'x', 'c', 'v', 'b', 'n',			/* 49 */
-        'm', ',', '.', '/',   0,				/* Right shift */
-        '*',
-        0,	/* Alt */
-        ' ',	/* Space bar */
-        0,	/* Caps lock */
-        0,	/* 59 - F1 key ... > */
-        0,   0,   0,   0,   0,   0,   0,   0,
-        0,	/* < ... F10 */
-        0,	/* 69 - Num lock*/
-        0,	/* Scroll Lock */
-        0,	/* Home key */
-        0,	/* Up Arrow */
-        0,	/* Page Up */
-        '-',
-        0,	/* Left Arrow */
-        0,
-        0,	/* Right Arrow */
-        '+',
-        0,	/* 79 - End key*/
-        0,	/* Down Arrow */
-        0,	/* Page Down */
-        0,	/* Insert Key */
-        0,	/* Delete Key */
-        0,   0,   0,
-        0,	/* F11 Key */
-        0,	/* F12 Key */
-        0,	/* All other keys are undefined */
-    };
-
 void kernel_main(void) {
-	terminal_initialize();
+    terminal_initialize();
     gdt_init();
     idt_init();
     isrs_install();
     irqs_install();
-    clock_set_freq(100);
-    clock_install();
-    irq_install_handler(1, keyboard_handler);
-    printf("Hello, kernel World!\n");
-    printf("It's a number! %d\n", 5);
     asm("sti");
+    clock_set_freq(100);
+    //clock_install();
+    keyboard_install();
+    printf("Hello, kernel World!\n");
+    //printf("Page: 0x%X\n", *((char *)0xF0000000));
     while(1);
-}
-
-void keyboard_handler(struct registers *r) {
-    unsigned char scancode = inportb(0x60);
-
-    if (scancode & 0x80) {
-
-    } else {
-        char str[2] = {
-                kbdus[scancode],
-                '\0'
-        };
-        printf(str);
-        printf(" key.\n");
-    }
 }

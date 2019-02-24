@@ -5,26 +5,6 @@
    "cc", 
    "-MD", 
    "-c", 
-   "kernel/ioports.c", 
-   "-o", 
-   "kernel/ioports.o", 
-   "-std=gnu11", 
-   "-O2", 
-   "-g", 
-   "-ffreestanding", 
-   "-Wall", 
-   "-Wextra", 
-   "-D__is_kernel", 
-   "-Iinclude"
-  ], 
-  "file": "kernel/ioports.c"
- }, 
- {
-  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
-  "arguments": [
-   "cc", 
-   "-MD", 
-   "-c", 
    "kernel/tables/idtset.S", 
    "-o", 
    "kernel/tables/idtset.o", 
@@ -102,6 +82,86 @@
    "cc", 
    "-MD", 
    "-c", 
+   "kernel/keyboard.c", 
+   "-o", 
+   "kernel/keyboard.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/keyboard.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/tables/irqs.c", 
+   "-o", 
+   "kernel/tables/irqs.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/tables/irqs.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/tables/paging.c", 
+   "-o", 
+   "kernel/tables/paging.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/tables/paging.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/clock.c", 
+   "-o", 
+   "kernel/clock.o", 
+   "-std=gnu11", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/clock.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
    "kernel/tables/gdt.c", 
    "-o", 
    "kernel/tables/gdt.o", 
@@ -141,9 +201,9 @@
    "cc", 
    "-MD", 
    "-c", 
-   "kernel/tables/irqs.c", 
+   "kernel/memmap.c", 
    "-o", 
-   "kernel/tables/irqs.o", 
+   "kernel/memmap.o", 
    "-std=gnu11", 
    "-O2", 
    "-g", 
@@ -153,7 +213,26 @@
    "-D__is_kernel", 
    "-Iinclude"
   ], 
-  "file": "kernel/tables/irqs.c"
+  "file": "kernel/memmap.c"
+ }, 
+ {
+  "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
+  "arguments": [
+   "cc", 
+   "-MD", 
+   "-c", 
+   "kernel/tables/pagingset.S", 
+   "-o", 
+   "kernel/tables/pagingset.o", 
+   "-O2", 
+   "-g", 
+   "-ffreestanding", 
+   "-Wall", 
+   "-Wextra", 
+   "-D__is_kernel", 
+   "-Iinclude"
+  ], 
+  "file": "kernel/tables/pagingset.S"
  }, 
  {
   "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 
@@ -181,9 +260,9 @@
    "cc", 
    "-MD", 
    "-c", 
-   "kernel/clock.c", 
+   "kernel/ioports.c", 
    "-o", 
-   "kernel/clock.o", 
+   "kernel/ioports.o", 
    "-std=gnu11", 
    "-O2", 
    "-g", 
@@ -193,7 +272,7 @@
    "-D__is_kernel", 
    "-Iinclude"
   ], 
-  "file": "kernel/clock.c"
+  "file": "kernel/ioports.c"
  }, 
  {
   "directory": "/home/daniel/Documents/OSDev/TauOS/meaty-skeleton/kernel", 

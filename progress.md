@@ -71,3 +71,22 @@
 
 [4]: http://www.osdever.net/bkerndev/Docs/gdt.htm
 [5]: https://stackoverflow.com/questions/49438550/assembly-executing-a-long-jump-with-an-offset-with-different-syntax
+
+#2019-02-17
+
++ Implemented IDT and ISRs
+  + Used mainly Bran's tutorial
+
+#2019-02-21
+
++ Added IRQs
++ Added timer support
+  + Had to use different timer mode to tutorial
++ Added keyboard support
++ Added number printf support
+
+#2019-02-23
+
++ Added paging
++ Moved kernel to higher half
++ Added long and unsigned number printf support

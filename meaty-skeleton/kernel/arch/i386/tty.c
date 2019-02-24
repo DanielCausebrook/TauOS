@@ -4,12 +4,13 @@
 #include <string.h>
 
 #include <kernel/tty.h>
+#include <kernel/system.h>
 
 #include "vga.h"
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
-static uint16_t* const VGA_MEMORY = (uint16_t*) 0xB8000;
+static uint16_t* VGA_MEMORY;// = (uint16_t*) 0xB8000;
 
 static size_t terminal_row;
 static size_t terminal_column;
@@ -17,6 +18,7 @@ static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
 void terminal_initialize(void) {
+	VGA_MEMORY = (uint16_t *) paging_init_vga();
 	terminal_row = 0;
 	terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
