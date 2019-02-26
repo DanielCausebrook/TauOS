@@ -3,6 +3,7 @@
 
 
 #include <stdint.h>
+#include <stddef.h>
 
 struct registers {
     unsigned int gs, fs, es, ds;      /* pushed the segs last */
@@ -13,7 +14,10 @@ struct registers {
 
 void *allocate_real_page();
 void free_real_page(void *page);
-void *allocate_kpage();
+int allocate_kpage(uint32_t viraddr);
+
+void *kmalloc(size_t size);
+void kfree(void *ptr);
 
 unsigned char inportb (unsigned short _port);
 void outportb (unsigned short _port, unsigned char _data);
@@ -22,6 +26,7 @@ void gdt_init();
 void idt_init();
 void isrs_install();
 void irqs_install();
+void kheap_init();
 void clock_install();
 void keyboard_install();
 

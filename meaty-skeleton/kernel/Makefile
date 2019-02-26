@@ -43,6 +43,7 @@ kernel/tables/paging.o \
 kernel/tables/pagingset.o \
 kernel/clock.o \
 kernel/keyboard.o \
+kernel/stdlib/malloc.o \
 
 OBJS=\
 $(ARCHDIR)/crti.o \
