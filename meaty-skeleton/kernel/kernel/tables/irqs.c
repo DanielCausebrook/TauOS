@@ -26,7 +26,7 @@ void *irq_handlers[16] = {
 };
 
 /// Installs an IRQ handler for the given IRQ
-void irq_install_handler(int irq, void (*handler)(struct registers *r))
+void irq_install_handler(int irq, void (*handler)(struct isr_registers *r))
 {
     irq_handlers[irq] = handler;
 }
@@ -74,8 +74,8 @@ void irqs_install() {
 }
 
 
-void irq_handler(struct registers *r) {
-    void (*handler)(struct registers *r) = irq_handlers[r->interrupt_num];
+void irq_handler(struct isr_registers *r) {
+    void (*handler)(struct isr_registers *r) = irq_handlers[r->interrupt_num];
 
     if(handler) handler(r);
 

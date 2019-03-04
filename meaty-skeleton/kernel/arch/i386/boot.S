@@ -104,6 +104,9 @@ _start:
     movl %cr3, %ecx
     movl %ecx, %cr3
 
+    push $(usersize)
+    push $(userlma)
+    call set_user_lma
 
 	# Call the global constructors.
     call _init

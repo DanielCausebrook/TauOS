@@ -44,6 +44,11 @@ kernel/tables/pagingset.o \
 kernel/clock.o \
 kernel/keyboard.o \
 kernel/stdlib/malloc.o \
+kernel/userspace.o \
+kernel/memmap.o \
+user/user0.o \
+user/user1.o \
+user/user2.o \
 
 OBJS=\
 $(ARCHDIR)/crti.o \

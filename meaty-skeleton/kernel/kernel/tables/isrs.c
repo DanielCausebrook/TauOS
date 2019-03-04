@@ -107,7 +107,7 @@ char *ex_msgs[] = {
         "Reserved"
 };
 
-void fault_handler(struct registers *r)
+void fault_handler(struct isr_registers *r)
 {
     if (r->interrupt_num < 32)
     {
