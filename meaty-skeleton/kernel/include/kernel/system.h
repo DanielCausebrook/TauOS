@@ -18,6 +18,7 @@ void free_real_page(void *page);
 int allocate_page(uint32_t viraddr);
 
 int map_page(uint32_t realaddr, uint32_t viraddr);
+void unmap_page(uint32_t viraddr);
 
 void *kmalloc(size_t size);
 void *kcalloc(size_t size);
@@ -45,6 +46,13 @@ void irq_uninstall_handler(int irq);
 
 int install_userprog(int progno);
 void begin_process(int pid);
+void uheap_init(void *heap);
+int running_pid();
+
+#define STDIN_MAXSIZE 4096
+#define MESSAGES_MAXSIZE 4096
+int stdin_get(int pid, void **stdin, size_t **stdin_size);
+int heap_map_get(int pid, void **heap_map);
 
 void clock_set_freq(int hz);
 #endif //KERNEL_SYSTEM_H

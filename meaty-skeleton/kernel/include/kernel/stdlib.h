@@ -4,8 +4,9 @@
 
 #ifndef KERNEL_STDLIB_H
 #define KERNEL_STDLIB_H
+#include <stddef.h>
 
-void *kmalloc();
-void kmalloc(void *ptr);
+void *malloc(size_t size);
+void free(void *ptr);
 
 #endif //KERNEL_STDLIB_H

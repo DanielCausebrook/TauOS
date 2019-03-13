@@ -44,6 +44,7 @@ kernel/tables/pagingset.o \
 kernel/clock.o \
 kernel/keyboard.o \
 kernel/stdlib/malloc.o \
+kernel/stdio/read.o \
 kernel/userspace.o \
 kernel/memmap.o \
 user/user0.o \

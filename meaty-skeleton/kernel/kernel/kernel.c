@@ -41,7 +41,7 @@ void kernel_main(void) {
     int pid1 = install_userprog(1);
     int pid2 = install_userprog(2);
     printf("Installed users.\n");
-    if(pid0) begin_process(pid0);
+    //if(pid0) begin_process(pid0);
     if(pid1) begin_process(pid1);
     if(pid2) begin_process(pid2);
     //printf("Page: 0x%X\n", *((char *)0xF0000000));

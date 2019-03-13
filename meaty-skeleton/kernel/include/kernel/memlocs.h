@@ -36,7 +36,9 @@ extern void reload_pages();
 #define KDATA_BASE                     0xC03FF000
     #define PAGETABLES_BASE                0xC0800000
         #define PAGETABLES_DIR_ENTRY           770
-    #define PCB_PAGETABLES_BASE            0xC0C00000
+        #define PAGETABLES_LIMIT               0xC0C00000
+    #define UHEAP_INIT_BASE                0xC0C00000
+        #define UHEAP_INIT_LIMIT               0xC0C01000
     #define KHEAP_BASE                     0xD0000000
         #define KHEAP_LIMIT                    0xF0000000
     #define VGA_BASE                       0xF0000000

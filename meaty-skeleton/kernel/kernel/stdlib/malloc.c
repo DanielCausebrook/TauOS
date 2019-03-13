@@ -168,3 +168,23 @@ void kheap_init() {
     allocate_page((uint32_t) kheap_start);
     set_block(kheap_start, get_addr_rel(kheap_start, 0x1000), LAST);
 }
+
+void uheap_init(void *heap) {
+    set_block(heap, get_addr_rel(heap, 0x1000), LAST);
+}
+
+void *malloc(size_t size) {
+    struct block_header *curr = UHEAP_BASE;
+    block_merge_free(curr);
+    while((isused(curr) || block_space(curr) < size) && !islast(curr)) {
+        curr = next_block(curr);
+        block_merge_free(curr);
+    }
+    if(!allocate_block(curr, size, USED)) return 0;
+    return get_addr_rel(curr, HEADER_SIZE);
+}
+
+void free(void* ptr) {
+    struct block_header *block = ptr - HEADER_SIZE;
+    set_block(block, next_block(block), 0);
+}

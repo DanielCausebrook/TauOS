@@ -53,6 +53,16 @@ int map_page(uint32_t realaddr, uint32_t viraddr) {
     return 1;
 }
 
+void unmap_page(uint32_t viraddr) {
+    if(viraddr & 0xFFF) return;
+    uint32_t page = viraddr >> 12;
+    int de = page / 0x00400;
+    int te = page % 0x00400;
+    struct page_entry *ktable = get_table(de);
+    set_page_entry(&ktable[te], 0, 0x0);
+    reload_pages();
+}
+
 int allocate_page(uint32_t viraddr) {
     if(viraddr & 0xFFF) return 0;
     return map_page((uint32_t) allocate_real_page(), viraddr);

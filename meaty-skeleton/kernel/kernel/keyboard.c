@@ -48,12 +48,17 @@ void keyboard_handler(struct isr_registers *r) {
     if (scancode & 0x80) {
 
     } else {
-        char str[2] = {
-                kbdus[scancode],
-                '\0'
-        };
-        printf(str);
-        printf(" key.\n");
+        char *stdin_buffer = 0;
+        size_t *stdin_size = 0;
+        if(!stdin_get(running_pid(), (void **) &stdin_buffer, &stdin_size) ) return;
+        if(*stdin_size == STDIN_MAXSIZE) return;
+        stdin_buffer[(*stdin_size)++] = kbdus[scancode];
+//        char str[2] = {
+//                kbdus[scancode],
+//                '\0'
+//        };
+//        printf(str);
+//        printf(" key.\n");
     }
 }
 
