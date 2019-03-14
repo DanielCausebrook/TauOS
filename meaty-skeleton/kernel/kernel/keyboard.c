@@ -68,7 +68,7 @@ void keyboard_handler(struct isr_registers *r) {
                     printf("Clock ON.\n");
                 }
             }
-            else if(kbdus[scancode] == 't') printf("%dms since boot.\n", get_time_ms());
+            else if(kbdus[scancode] == 't') printf("%dms since boot.\n", get_time_ms()*10);
             else if(kbdus[scancode] == 'p') {
                 if(get_message_passing_protection()) {
                     set_message_passing_protection(0);
