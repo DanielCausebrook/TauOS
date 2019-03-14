@@ -14,5 +14,7 @@ struct message {
 
 int send(void *message, size_t message_size, int dest_pid);
 int recieve(struct message *messageblock);
+void enable_message_passing(size_t size);
+void enable_message_passing_pid(int pid, size_t size);
 
 #endif //KERNEL_MESSAGES_H

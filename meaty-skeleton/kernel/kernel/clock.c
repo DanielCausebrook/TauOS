@@ -10,11 +10,25 @@ void clock_set_freq(int hz) {
 }
 
 int counter = 0;
+int announce = 0;
 
 void clock_handler(struct isr_registers *r) {
     counter++;
 
-    if(counter % 1000 == 0) printf("%d Seconds!\n", counter/100);
+    if(announce && counter % 1000 == 0) printf("%d Seconds.\n", counter/100);
+}
+
+int get_time_ms() {
+    return counter;
+}
+
+
+void set_announce_clock(int ann) {
+    announce = ann;
+}
+
+int get_announce_clock() {
+    return announce;
 }
 
 void clock_install() {

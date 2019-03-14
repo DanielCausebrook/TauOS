@@ -36,19 +36,29 @@ void irqs_install();
 void kheap_init();
 void clock_install();
 void keyboard_install();
-
 void *paging_init_vga();
 
 void idt_set_gate(uint8_t gateNum, uint64_t offset, uint16_t selector, uint8_t type_attr);
 
 void irq_install_handler(int irq, void (*handler)(struct isr_registers *r));
+
 void irq_uninstall_handler(int irq);
+
+void set_announce_clock(int ann);
+int get_announce_clock();
+int get_time_ms();
 
 int install_userprog(int progno);
 void begin_process(int pid);
 void uheap_init(void *heap);
 int running_pid();
 
+void install_userprogs();
+void run_userprog(int id);
+
+void set_message_passing_protection(int protected);
+
+int get_message_passing_protection();
 #define STDIN_MAXSIZE 4096
 #define MESSAGES_MAXSIZE 4096
 int stdin_get(int pid, void **stdin, size_t **stdin_size);

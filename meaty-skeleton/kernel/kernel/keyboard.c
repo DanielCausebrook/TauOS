@@ -50,9 +50,36 @@ void keyboard_handler(struct isr_registers *r) {
     } else {
         char *stdin_buffer = 0;
         size_t *stdin_size = 0;
-        if(!stdin_get(running_pid(), (void **) &stdin_buffer, &stdin_size) ) return;
-        if(*stdin_size == STDIN_MAXSIZE) return;
-        stdin_buffer[(*stdin_size)++] = kbdus[scancode];
+        if(running_pid()) {
+            printf("%d\n", running_pid());
+            if(!stdin_get(running_pid(), (void **) &stdin_buffer, &stdin_size) ) return;
+            if(*stdin_size == STDIN_MAXSIZE) return;
+            stdin_buffer[(*stdin_size)++] = kbdus[scancode];
+        } else {
+            if(kbdus[scancode] == '0') run_userprog(0);
+            else if(kbdus[scancode] == '1') run_userprog(1);
+            else if(kbdus[scancode] == '2') run_userprog(2);
+            else if(kbdus[scancode] == 'c') {
+                if(get_announce_clock()) {
+                    set_announce_clock(0);
+                    printf("Clock OFF.\n");
+                } else {
+                    set_announce_clock(1);
+                    printf("Clock ON.\n");
+                }
+            }
+            else if(kbdus[scancode] == 't') printf("%dms since boot.\n", get_time_ms());
+            else if(kbdus[scancode] == 'p') {
+                if(get_message_passing_protection()) {
+                    set_message_passing_protection(0);
+                    printf("Kernel protections are OFF.\n");
+                } else {
+                    set_message_passing_protection(1);
+                    printf("Kernel protections are ON.\n");
+                }
+            }
+
+        }
 //        char str[2] = {
 //                kbdus[scancode],
 //                '\0'

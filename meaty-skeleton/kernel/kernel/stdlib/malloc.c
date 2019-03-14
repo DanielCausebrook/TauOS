@@ -9,7 +9,7 @@
 /*
  *  Header
  *
- * 0..31  : 32 bit pointer to next block header in different page
+ * 0..31  : 32 bit pointer to next block header
  * 32     : Used block if set
  * 33     : Last block
  * 34..38 : Unused

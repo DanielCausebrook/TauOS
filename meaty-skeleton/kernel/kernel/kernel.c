@@ -15,34 +15,26 @@ void kernel_main(void) {
     idt_init();
     isrs_install();
     irqs_install();
-    asm("sti");
     kheap_init();
-    kmalloc(2);
-    int *arr = kmalloc_aligned(2000* sizeof(int), 25);
-    for(int i = 0; i < 2000; i++) {
-        arr[i] = 0xFFFFAAAA;
-    }
-
-    printf("Addr: %u\n", (uint32_t)arr);
-
-    uint32_t mem = KHEAP_BASE;
-    for(int i = 0; i<16; i++) {
-        for(int j = 0; j<16; j++) {
-            printf("%X ", *(uint8_t *)(uint64_t)(mem + (i*16) + j));
-        }
-        printf("\n");
-
-    }
     clock_set_freq(100);
-    //clock_install();
+    clock_install();
     keyboard_install();
-    printf("Hello, kernel World!\n");
-    int pid0 = install_userprog(0);
-    int pid1 = install_userprog(1);
-    int pid2 = install_userprog(2);
-    printf("Installed users.\n");
-    //if(pid0) begin_process(pid0);
-    if(pid1) begin_process(pid1);
-    if(pid2) begin_process(pid2);
-    //printf("Page: 0x%X\n", *((char *)0xF0000000));
+    install_userprogs();
+    asm("sti");
+    printf("TauOS Minimal operating system\n\n");
+    printf("COMMANDS:\n");
+    printf("[c] to toggle clock timer.\n");
+    printf("[t] to display milliseconds since boot.\n");
+
+    printf("[0-2] to execute user processes:\n");
+    printf("    0: Benign process (log an action)\n");
+    printf("    1: Malicious program (attempt buffer overflow attack)\n");
+    printf("    2: Logging process that is vulnerable to buffer overflow attacks.\n");
+
+    printf("[p] to enable kernel protections forcing specification of maximum message size.");
+    printf("    Kernel protections are currently ");
+    if(get_message_passing_protection()) printf("ON");
+    else printf("OFF");
+    printf(".\n----------\n\n");
+    while(1);
 }

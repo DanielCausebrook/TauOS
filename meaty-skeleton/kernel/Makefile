@@ -47,6 +47,7 @@ kernel/stdlib/malloc.o \
 kernel/stdio/read.o \
 kernel/userspace.o \
 kernel/memmap.o \
+kernel/progmanager.o \
 user/user0.o \
 user/user1.o \
 user/user2.o \

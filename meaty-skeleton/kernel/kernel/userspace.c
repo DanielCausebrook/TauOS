@@ -5,7 +5,9 @@
 #include <kernel/messages.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> 140
+
+#define VULNERABLE 0
 
 uint32_t users_loc;
 uint32_t users_size;
@@ -31,6 +33,7 @@ struct process_control_block {
     size_t stdin_size;
     struct message **messages;
     size_t messages_size;
+    size_t message_max_size;
 };
 
 #define MAX_PROCESSES 10
@@ -82,6 +85,7 @@ void begin_process(int pid) {
     reload_pages();
     running = &process_control_blocks[pid-1];
     ((void (*)()) UCODE_BASE)();
+    running = 0;
 }
 
 int running_pid() {
@@ -102,10 +106,31 @@ int heap_map_get(int pid, void **heap_map) {
     return 1;
 }
 
+int is_protecting = 0;
+
+void set_message_passing_protection(int protected) {
+    is_protecting = protected;
+}
+
+int get_message_passing_protection() {
+    return is_protecting;
+}
+
+void enable_message_passing(size_t size) {
+}
+void enable_message_passing_pid(int pid, size_t size) {
+    if(pid > MAX_PROCESSES || pid == 0 || process_control_blocks[pid-1].pid == 0) return 0;
+    struct process_control_block *block = &process_control_blocks[pid - 1];
+    block->message_max_size = size;
+}
+
 int send(void *message, size_t message_size, int dest_pid) {
     if(dest_pid > MAX_PROCESSES || dest_pid == 0 || process_control_blocks[dest_pid-1].pid == 0) return 0;
     struct process_control_block *destblock = &process_control_blocks[dest_pid - 1];
     if(destblock->messages_size >= MESSAGES_MAXSIZE) return 0;
+
+    if(is_protecting && destblock->message_max_size < message_size) return 0;
+
     void *kmessage = kmalloc(message_size);
     struct message *messageblock = kmalloc(sizeof(struct message));
     memcpy(kmessage, message, message_size);
@@ -126,5 +151,9 @@ int recieve(struct message *messageblock) {
     messageblock->message = message;
     messageblock->size = kmessageblock->size;
     messageblock->sender = kmessageblock->sender;
+
+    free(kmessageblock->message);
+    block->messages_size--;
+    memcpy(block->messages[0], block->messages[1], block->messages_size * sizeof(struct message));
     return 1;
 }
